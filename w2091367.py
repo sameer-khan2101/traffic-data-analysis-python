@@ -85,12 +85,16 @@ while not end_loop:
    data_file_required=f"traffic_data{day:02}{month:02}{year}.csv" #The name of the csv dataset file that program will use
 
    #Code to load the csv file into data_list
-   with open(data_file_required, 'r') as file:
-       csvreader = csv.reader(file)
-       header = next(csvreader)
-       for row in csvreader:
-           data_list.append(row)
-   #data_list will be a nested list, where each individual list will be about infomation of an individual vehicle
+   try:
+      with open(data_file_required, 'r') as file:
+          csvreader = csv.reader(file)
+          header = next(csvreader)
+          for row in csvreader:
+              data_list.append(row) #data_list will be a nested list, where each individual list will be about infomation of an individual vehicle
+   except FileNotFoundError:
+      print("File does not exist")
+      break  # Exit the program
+   
 
    #Below will be code that will be used to analyse dataset and output the analysis
    print("***************************")
